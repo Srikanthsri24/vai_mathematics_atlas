@@ -1,0 +1,2 @@
+import type {FormulaEntry} from './formulaCatalog';
+export function sampleInput(f:FormulaEntry,key:string,value:number){const integerModel=/integer|digit|count|index|trials|outcomes/i.test(f.condition)||/fact|choose|gcd/.test(f.expression);const integerKey=['n','k','r','N','f','F','V'].includes(key)||/digit/i.test(f.condition)&&['h','t','u'].includes(key)||/gcd/.test(f.expression);return integerModel&&integerKey?Math.round(value):value}

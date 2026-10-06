@@ -1,0 +1,5 @@
+import {FormulaModel} from './FormulaExplorer';
+import {formulas} from './formulaCatalog';
+import {labGroups} from './labGroups';
+import {useLab} from './parameters';
+export default function FormulaLab(){const {topic,values,set,view}=useLab(),group=labGroups[topic.id],entries=group.formulaIds.map(id=>formulas.find(f=>f.id===id)).filter(f=>!!f),entry=entries.find(f=>f.id===values.formulaId)||entries[0];if(!entry)return <p>No model registered.</p>;const numeric=Object.fromEntries(Object.keys(entry.defaults).map(k=>[k,Number(values[k]??entry.defaults[k])]));return <div className="dedicated-formula-lab"><label className="formula-scenario-select">Explore a relationship<select aria-label="Lab relationship" value={entry.id} onChange={e=>{const next=entries.find(f=>f.id===e.target.value)!;set({...next.defaults,formulaId:next.id})}}>{entries.map(f=><option key={f.id} value={f.id}>{f.title}</option>)}</select></label><FormulaModel key={entry.id} entry={entry} externalValues={numeric} onValues={set} externalMode={view} compact/></div>}
