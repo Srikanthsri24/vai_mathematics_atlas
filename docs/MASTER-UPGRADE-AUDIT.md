@@ -31,3 +31,12 @@ Symbolic calculus uses a bounded arithmetic tree and selected analytic rules, wi
 - Precise insertion, focus mode, automatic return to Select, color editing, alignment, fitting, pan controls and typing-aware keyboard shortcuts. Circle/arc fitting uses conservative radius bounds; ellipse bounds enclose the rotated construction box. Text fitting estimates its rendered width.
 - Graph workflow chooser, independent vertical fitting, curve visibility/colors, progressive analysis panels and a bisection solver with finite-value/residual safeguards. Numerical approximations and domain restrictions remain visible.
 - 37 mathematical checks pass, including achievability and incomplete-starter rejection for all 260 generated project goals. Browser verification covers filtered projects, exact insertion, goal feedback and the root solver.
+
+
+## Competitive exam foundation release
+- Added six sidebar routes and home/analytics entry points. 65 original explained concepts, five approaches and five parameterized cases each (325 cases). Foundation/Intermediate/Advanced filters reflect the content; this is not full syllabus certification.
+- Number/rate/growth/geometry/counting lessons and pattern/spatial/deductive reasoning teach rules, assumptions, five concrete worked approaches, practical context and common traps. All approaches use the same displayed case; some are verification techniques.
+- Practice separates answers from worked explanations until submission. Lesson practice hides both computed output and solved visual. Probability options remain within [0,1].
+- Optional deadlines, clear +1/penalty/skipped scoring, marked questions, complete solution review, retry of missed/skipped cases; no backend or account data. Leaving/reloading resets attempts.
+- 42 tests passed, including checked golden answers for all 65 starters, integrity of all 325 cases, independent rate/counting/growth identities, filtering, uniqueness and scoring. Browser checks verified timed navigation, mixed-answer scoring (0.75 for 1 correct/1 wrong/3 skipped at −0.25), mobile no horizontal page overflow, and a four-question retry after one correct/four skips.
+- Scope references (internal documentation only): https://ssc.gov.in/for-candidates/syllabus and https://www.ibps.in/wp-content/uploads/DetailedNotification_CRP_CSA_XV_Final_for_Website_12.9.2025.pdf . Product lessons remain VisionicX-branded.
