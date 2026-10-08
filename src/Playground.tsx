@@ -285,6 +285,7 @@ export default function Playground() {
     [help, U] = useState(false),
     [historyStatus, HS] = useState(""),
     [toolQuery, TQ] = useState(""),
+    [toolCategory, TC] = useState("Essentials"),
     [projectLimit, PL] = useState(8),
     [graph, GP] = useState(false),
     [expression, EX] = useState("a*(x-b)^2+c"),
@@ -786,7 +787,7 @@ export default function Playground() {
           {shapes.length} objects · saved on this device
         </span>
       </section>
-      <div className="play-project-heading">
+      <details className="project-drawer"><summary>Start from a guided project · 16 ready-made scenes</summary><div className="play-project-heading">
         <div>
           <h3>Choose a guided project</h3>
           <p>A starting scene, a question, and room to make it your own.</p>
@@ -832,6 +833,8 @@ export default function Playground() {
             : "Show fewer projects ↑"}
         </button>
       </div>
+      </details>
+      <div className="canvas-quick-guide"><strong>1. Choose a tool</strong><span>2. Drag to draw · select to move</span><span>3. Edit the object · export your work</span><p>Current tool: <b>{tool}</b>. {tool==='Select'?'Click an object to select it. Drag it to move. Use the object panel for measurements and styling.':tool==='Text'?'Click the canvas to place text, then edit its label in the object panel.':'Drag across the canvas to draw. Use Select when you want to move or style an object.'}</p></div>
       {activeProject && (
         <div className="play-guided-note">
           <strong>{activeProject.title}</strong>
@@ -1137,12 +1140,13 @@ export default function Playground() {
             value={toolQuery}
             onChange={(e) => TQ(e.target.value)}
           />
-          {toolGroups.map((g) => (
+          <label>Tool collection<select aria-label="Tool collection" value={toolCategory} onChange={e=>TC(e.target.value)}>{["Essentials",...toolGroups.map(g=>g.name),"All tools"].map(x=><option key={x}>{x}</option>)}</select></label>
+          {toolGroups.filter(g=>toolQuery||toolCategory==="Essentials"||toolCategory==="All tools"||g.name===toolCategory).map((g) => (
             <div className="tool-group" key={g.name}>
               <small>{g.name}</small>
               {g.tools
                 .filter(([t]) =>
-                  t.toLowerCase().includes(toolQuery.toLowerCase()),
+                  t.toLowerCase().includes(toolQuery.toLowerCase()) && (!!toolQuery || toolCategory!=="Essentials" || ["Select","Text","Circle","Rectangle","Triangle","Star","Segment","Pen"].includes(t)),
                 )
                 .map(([t, icon]) => (
                   <button

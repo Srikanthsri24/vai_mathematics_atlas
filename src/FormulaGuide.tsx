@@ -1,3 +1,4 @@
+import {learningSteps, RelationshipExperiment, SolvingTechniques} from "./FormulaLearningPath";
 import { symbolMeaning } from "./formulaSymbols";
 import { useState } from "react";
 import type { FormulaEntry } from "./formulaCatalog";
@@ -6,7 +7,7 @@ import { calculationSteps, readableStep } from "./expressionSteps.mjs";
 import { formulaSituations, admissible, describeInputs } from "./situations";
 import { calculate, formatValue } from "./formulaMath.mjs";
 import { Formula } from "./components";
-export default function FormulaGuide({
+function FormulaGuideContent({
   entry,
   section,
 }: {
@@ -19,7 +20,7 @@ export default function FormulaGuide({
   const active = section || tab,
     guide = teachingFor(entry),
     scenarios = formulaSituations.filter((s) => s.formulaId === entry.id),
-    examples = scenarios.slice(0, 2),
+    examples = scenarios,
     challenge = scenarios[1],
     steps = calculationSteps(entry.expression, entry.defaults);
   return (
@@ -153,6 +154,7 @@ export default function FormulaGuide({
       )}
       {active === "Origin" && (
         <>
+          <h3>Formula creation · build the relationship from the concept</h3>
           <p>{guide.idea}</p>
           <ol className="reasoned-steps">
             {guide.origin.map((s, i) => (
@@ -172,6 +174,7 @@ export default function FormulaGuide({
               <article className="worked-example" key={s.id}>
                 <small>{s.title}</small>
                 <h3>{s.story}</h3>
+                <p><strong>Your task:</strong> {s.question}</p>
                 <p>{describeInputs(s.given)}</p>
                 <ol>
                   {s.steps.map((v) => (
@@ -287,4 +290,12 @@ export default function FormulaGuide({
       )}
     </section>
   );
+}
+
+export default function FormulaGuide({entry,section,values:external,onValues}:{entry:FormulaEntry;section?:string;values?:Record<string,number>;onValues?:(v:Record<string,number>)=>void}){
+ const [step,S]=useState(0),[local,Local]=useState({...entry.defaults});
+ const values=external||local,V=onValues||Local;
+ if(section)return <><FormulaGuideContent entry={entry} section={section}/>{section==='Worked examples'&&<SolvingTechniques entry={entry}/>}</>;
+ const sections=['Meaning','','','Origin','Reading','Worked examples','Real life','Real-life challenge'];
+ return <div className="formula-learning-path"><header className="path-intro"><span className="eyebrow">UNDERSTAND THE RELATIONSHIP</span><h2>From an idea to a formula. From a formula to a decision.</h2><p>Follow eight connected steps for {entry.title.toLowerCase()}. Explore the concept, discover a pattern, justify the relationship and use it in a real situation.</p></header><div className="formula-path-tabs" role="tablist" aria-label="Formula learning journey">{learningSteps.map((label,i)=><button role="tab" aria-selected={step===i} key={label} className={step===i?'selected':''} onClick={()=>S(i)}><small>{i+1} / 8</small><strong>{label}</strong></button>)}</div><div role="tabpanel" aria-label={learningSteps[step]} key={entry.id+'-'+step}>{step===1||step===2?<RelationshipExperiment entry={entry} values={values} onValues={V} predict={step===2}/>:<FormulaGuideContent entry={entry} section={sections[step]}/>}{step===5&&<SolvingTechniques entry={entry}/>} {step===7&&<section className="exam-check"><h3>Explain, verify, then apply</h3><p>After answering, explain why this formula fits the story. Check the domain and units, and say what the sign of your answer means. Use Solve examples for five methods and an exam checklist.</p><a href="#games">Open class & topic challenges →</a></section>}</div><div className="path-navigation"><button disabled={step===0} onClick={()=>S(step-1)}>← Previous step</button><span>{step+1} / 8 · {learningSteps[step]}</span><button disabled={step===7} onClick={()=>S(step+1)}>Next step →</button></div></div>
 }

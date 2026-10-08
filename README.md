@@ -36,3 +36,9 @@ pnpm build
 The workflow in `.github/workflows/deploy.yml` tests and builds the frontend, then publishes `dist` on pushes to `main`. Configure Settings → Pages → Source as GitHub Actions. Deployment uses GitHub's workflow token and OIDC. The Vite base path is `/vai_mathematics_atlas/`; hash navigation works without server routing rules.
 
 See [implementation notes](docs/MASTER-UPGRADE-AUDIT.md) for scope and verification.
+
+
+### Creative learning upgrade
+The formula library now follows the same eight-step sequence as the standard lab journey. Its experiment inputs share state with the graph/calculator and persist between steps. Five approaches per formula cover calculation, explanation and checking; core examples have additional authored shortcuts. These approaches are not a claim of five distinct algebraic solutions or complete proofs for every formula.
+
+The playground starts with a workspace chooser, includes seven workspaces and an eight-template SVG design studio (rosette, mosaic, spiral, wave art, mandala, poster, blueprint and emblem). Templates expose relevant controls, four palettes, six motifs where applicable and SVG export. Geometry starts with eight essential tools; collections and search reveal all 27 tools. Domain pages include an overview, concept path, guided start and searchable labs with class/difficulty filters.

@@ -12,3 +12,5 @@ import './upgrade.css';
 import './discovery/discovery.css';
 
 import './learningUpgrade.css';
+
+import './creativeUpgrade.css';

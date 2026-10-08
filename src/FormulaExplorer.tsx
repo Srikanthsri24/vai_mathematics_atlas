@@ -351,6 +351,7 @@ export function FormulaModel({
     </div>
   );
 }
+function FormulaWorkspace({entry}:{entry:FormulaEntry}){const [values,V]=useState({...entry.defaults});return <><FormulaModel entry={entry} externalValues={values} onValues={V}/><FormulaGuide entry={entry} values={values} onValues={V}/></>}
 export default function FormulaLibrary() {
   const [query, Q] = useState(""),
     [domain, D] = useState("All"),
@@ -445,8 +446,7 @@ export default function FormulaLibrary() {
       </div>
       {entry ? (
         <>
-          <FormulaModel key={entry.id} entry={entry} />
-          <FormulaGuide key={entry.id + "-guide"} entry={entry} />
+          <FormulaWorkspace key={entry.id} entry={entry} />
           <a
             className="formula-situations-link"
             href={"#real?formula=" + entry.id}

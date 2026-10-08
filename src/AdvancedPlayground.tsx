@@ -1,3 +1,4 @@
+import DesignStudio from "./DesignStudio";
 import { useState, lazy, Suspense } from "react";
 import {
   rectangleAtPerimeter,
@@ -7,6 +8,7 @@ import {
 import { formatValue } from "./formulaMath.mjs";
 const Geometry = lazy(() => import("./Playground"));
 const modes = [
+  ["Design studio", "Patterns, posters & geometric art"],
   ["Geometry canvas", "Draw, construct, transform"],
   ["Transformation lab", "Matrices, basis & area"],
   ["Probability sandbox", "Exact distribution & trials"],
@@ -15,7 +17,7 @@ const modes = [
   ["Pattern studio", "Tiles, symmetry & sequences"],
 ];
 export default function AdvancedPlayground() {
-  const [mode, M] = useState("Geometry canvas"),
+  const [mode, M] = useState("Choose workspace"),
     [matrix, MX] = useState([1, 0.5, 0, 1]),
     [p, P] = useState(0.5),
     [n, N] = useState(6),
@@ -63,13 +65,13 @@ export default function AdvancedPlayground() {
             Make it respond.
           </h2>
           <p>
-            Choose a workspace. Manipulate the mathematics, inspect the result
-            and explain what stayed true. All calculations run in your browser.
+            Start with what you want to make. Choose a ready-to-use design, draw freely, or run a guided experiment. Each workspace keeps its tools together.
           </p>
         </div>
         <a href="#graph-studio">Open advanced Graph Studio ↗</a>
       </section>
-      <div
+      {mode !== "Choose workspace" && <div className="workspace-switch"><button onClick={()=>M("Choose workspace")}>← All workspaces</button><strong>{mode}</strong><label>Switch workspace<select aria-label="Switch playground workspace" value={mode} onChange={e=>M(e.target.value)}>{modes.map(([name])=><option key={name}>{name}</option>)}</select></label></div>}
+      {mode === "Choose workspace" && <><div className="workspace-start"><span className="eyebrow">A SIMPLE START</span><h3>What would you like to create?</h3><p>Design studio is the quickest way to make something beautiful. Geometry canvas gives you full control over drawing and construction.</p><div className="quick-start-actions"><button className="primary" onClick={()=>M("Design studio")}>Create a pattern or poster →</button><button onClick={()=>M("Geometry canvas")}>Draw on a canvas →</button></div></div><div
         className="playground-modes"
         role="tablist"
         aria-label="Playground workspace"
@@ -86,13 +88,13 @@ export default function AdvancedPlayground() {
               F("");
             }}
           >
-            <span>{["✎", "▱", "◉", "▦", "ƒ", "◈"][i]}</span>
+            <span>{["✺", "✎", "▱", "◉", "▦", "ƒ", "◈"][i]}</span>
             <strong>{name}</strong>
             <small>{desc}</small>
           </button>
         ))}
-      </div>
-      {mode === "Geometry canvas" ? (
+      </div></>}
+      {mode === "Choose workspace" ? <section className="workspace-how"><h3>Choose → create → explore → export</h3><p>Start from a template, change one setting, and watch the preview. Geometry supports undo and object editing. The design studio exports SVG artwork for posters, presentations and projects.</p></section> : mode === "Design studio" ? <DesignStudio/> : mode === "Geometry canvas" ? (
         <Suspense fallback={<p>Opening geometry canvas…</p>}>
           <Geometry />
         </Suspense>

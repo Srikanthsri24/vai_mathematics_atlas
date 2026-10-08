@@ -17,3 +17,10 @@ Symbolic calculus uses a bounded arithmetic tree and selected analytic rules, wi
 ## Validation
 
 32 automated checks cover every formula's default/alternative inputs, five situation types, four focused-lab examples and activity targets, explanations and calculation-trace results, class challenge counts, restricted parsers, symbolic product/quotient/chain rules, least squares, exact responses, distribution mass, constrained maxima, circle intersections, geometry and prior discovery resources. TypeScript and production build checks are required. Browser checks exercise the single lesson path, formula guide, class selection, graph modes, playground tools and responsive layouts before publication.
+
+
+## Creative frontend revision
+- Formula library: eight guided stages, linked experiment/calculator inputs, numeric prediction feedback, five contextual worked tasks and five calculation/explanation/check approaches. Authored alternate methods for twelve core relationships; general model-specific strategies for the remainder. Mental strategies, conceptual reasoning, visual connections, competition investigation and exam checklists are included without claiming five independent proofs for every formula.
+- Playground: chooser-first navigation, seven workspaces, eight design templates, palette/background/motif controls and SVG export. Essential geometry tools are shown first, with searchable collections revealing the full toolset; sixteen starting projects live in an expandable drawer.
+- Domain overview and inner domain pages: visual cards, concept roadmaps, guided starts, class/difficulty/search filtering and paginated lab exploration.
+- Verification: 34 mathematical checks; frontend type checking and production build; browser verification of live-linked prediction feedback, design customization/export invocation, domain filters and mobile bounds. Browser download-event reporting was unavailable, so file transfer completion was not confirmed through that event API.

@@ -1,3 +1,4 @@
+import DomainExplorer from './DomainExplorer';
 import ClassExplorer from './ClassExplorer';
 import {useState,useEffect,lazy,Suspense,Component,type ReactNode} from 'react';
 import {BarChart3,Home,Layers,Grid2X2,Sparkles,Sigma,Search,Box,ChevronRight,ArrowUpRight,ArrowRight,Maximize,Minimize,RotateCcw,Menu,X,SlidersHorizontal,GraduationCap,Clock,FlaskConical,Compass,BookOpen,Check,Sun,Moon} from 'lucide-react';
@@ -45,7 +46,7 @@ view==='topic'&&active?<><div className="topic-breadcrumb"><button onClick={()=>
 ['curriculum','programme','studios','graph-studio'].includes(view)||view.startsWith('foundation-')?<Suspense fallback={<div className="loading">Opening discovery workspace…</div>}>{view==='curriculum'?<CurriculumNavigator/>:view==='programme'?<CurriculumNavigator programme/>:view==='studios'?<Studios/>:view==='graph-studio'?<GraphStudio/>:<FoundationStudio key={view} id={view}/>}</Suspense>:
 view==='analytics'?<Suspense fallback={<div className="loading">Preparing learning analytics…</div>}><Analytics/></Suspense>:
 view==='classes'?<ClassExplorer onOpen={open} onCatalog={(grade)=>{go('catalog');setClassFilter(String(grade));setDomain('All')}}/>:
-view==='domains'?<><div className="section-heading"><div><span className="eyebrow">FOLLOW YOUR CURIOSITY</span><h1>Connected by mathematics</h1><p>Explore ideas across classes and see how they connect.</p></div></div><div className="domains-grid">{domains.map((d,i)=><button key={d} onClick={()=>{go('catalog');setDomain(d)}}><span className="domain-number">{String(i+1).padStart(2,'0')}</span><h2>{d}</h2><p>{topics.filter(t=>t.domain===d).map(t=>t.subtitle).join(' · ')}</p><span>{topics.filter(t=>t.domain===d).length} interactive labs <ArrowRight size={16}/></span></button>)}</div></>:
+view==='domains'?<DomainExplorer onOpen={open}/>:
 view==='formulas'?<Suspense fallback={<div className="loading">Opening the visual formula atlas…</div>}><FormulaLibrary/></Suspense>:
 view==='playground'?<><div className="section-heading"><div><span className="eyebrow">A SPACE FOR YOUR IDEAS</span><h1>Math playground</h1><p>Draw, drag, measure, and discover.</p></div></div><Suspense fallback={<div className="loading">Opening your workspace…</div>}><Playground/></Suspense></>:
 view==='real'?<Suspense fallback={<div className="loading">Preparing real-world situations…</div>}><RealWorld/></Suspense>:
