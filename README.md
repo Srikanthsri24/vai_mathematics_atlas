@@ -1,6 +1,14 @@
-# VisionicX Mathematics Atlas
+# VISIONICX MATHS ATLAS
 
 An interactive mathematics laboratory built with React, TypeScript, Vite and Three.js.
+
+See → Build → Discover → Derive → Understand → Solve → Use → Master.
+
+The discovery upgrade adds an explicit curriculum hierarchy and coverage report, a complete Circle Area chapter, a separate fourteen-level programme, sixteen studio entry points, a multi-function Graph Studio, foundation manipulatives, a local learning desk, teacher lesson tools and a review editor. The existing catalogue below remains available.
+
+Read [the implementation and coverage audit](docs/MASTER-UPGRADE-AUDIT.md) for the distinction between available core models and completed teaching chapters. Only the Circle Area representative chapter is marked complete; board mappings and other chapter derivations still require review.
+
+The optional [Django/DRF PostgreSQL backend](backend/README.md) provides exact symbolic calculations, verified answer grading, private progress, teacher assignments and immutable content revisions. Its Docker configuration is AWS-compatible; it is not provisioned or deployed to AWS by the GitHub Pages workflow. GitHub Actions runs both frontend checks and PostgreSQL API tests before publishing the static app.
 
 ## Explore
 

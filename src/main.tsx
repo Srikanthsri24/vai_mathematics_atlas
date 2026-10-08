@@ -8,3 +8,5 @@ import 'katex/dist/katex.min.css';
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);
 
 import './upgrade.css';
+
+import './discovery/discovery.css';
