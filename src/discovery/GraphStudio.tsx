@@ -1,3 +1,4 @@
+import GraphSolver from "./GraphRootPanel";
 import GraphExtensions from "./GraphExtensions";
 import { symbolicDerivative } from "../expressionSteps.mjs";
 import { useState, useRef } from "react";
@@ -9,7 +10,7 @@ import {
   segments,
   knownDomain,
 } from "./graphMath.mjs";
-const colours = [
+const defaultColours = [
   "#2563eb",
   "#d97706",
   "#a855f7",
@@ -22,17 +23,21 @@ const show = (v: number | null) =>
     ? Number(v.toFixed(5)).toString()
     : "Undefined";
 export default function GraphStudio() {
-  const [mode, MODE] = useState("Cartesian"),
+  const [mode, MODE] = useState("Choose workflow"),
+    [intent,INTENT]=useState("Plot & trace"),
+    [hidden,HIDDEN]=useState<number[]>([]),
+    [colours,COLORS]=useState(defaultColours),
     [secant, SEC] = useState(false),
     [step, STEP] = useState(0.5),
     [tableStep, TS] = useState(1);
-  const [functions, F] = useState(["a*x^2+b*x+c", "sin(x)"]),
+  const [functions, F] = useState(["a*x^2+b*x+c"]),
     [a, A] = useState(1),
     [b, B] = useState(0),
     [c, C] = useState(0),
     [center, CE] = useState(0),
     [yc, YC] = useState(0),
     [span, SP] = useState(10),
+    [ySpan,YS] = useState(10),
     [at, T] = useState(1),
     [from, FR] = useState(0),
     [to, TO] = useState(2),
@@ -45,10 +50,10 @@ export default function GraphStudio() {
     params = { a, b, c },
     min = center - span / 2,
     max = center + span / 2,
-    ymin = yc - span / 2,
-    ymax = yc + span / 2,
+    ymin = yc - ySpan / 2,
+    ymax = yc + ySpan / 2,
     X = (x: number) => ((x - min) / span) * 800,
-    Y = (y: number) => 500 - ((y - ymin) / span) * 500,
+    Y = (y: number) => 500 - ((y - ymin) / ySpan) * 500,
     main = functions[0] || "0",
     y = valueAt(main, at, params),
     slope = derivativeAt(main, at, params),
@@ -111,55 +116,35 @@ export default function GraphStudio() {
   };
   return (
     <div className="discovery-page">
-      <span className="eyebrow">GRAPH & FUNCTION STUDIO</span>
-      <h1>Draw a relationship. Explore its change.</h1>
-      <p>
-        Equations, parameters, tables and calculus overlays update together. Use
-        explicit multiplication and radians: <code>a*x^2+b*x+c</code>,{" "}
-        <code>sin(x)</code>, <code>sqrt(x)</code>.
-      </p>
-      <div
-        className="guide-tabs graph-mode-tabs"
-        role="tablist"
-        aria-label="Graph studio mode"
-      >
-        {["Cartesian", "Parametric", "Polar", "Data fit"].map((m) => (
-          <button
-            key={m}
-            role="tab"
-            aria-selected={mode === m}
-            className={mode === m ? "selected" : ""}
-            onClick={() => MODE(m)}
-          >
-            {m}
-          </button>
-        ))}
-      </div>
-      {mode !== "Cartesian" ? (
+      <section className="graph-platform-hero"><div><span className="eyebrow">VISIONICX GRAPH STUDIO</span><h1>Start with a question.<br/>Build a clear graph.</h1><p>Plot relationships, compare models, investigate change or fit real data. Choose a workflow to get the right tools and a worked starting point.</p></div><div aria-hidden="true" className="graph-hero-symbol">ƒ(x)<small>plot · trace · explain</small></div></section>
+      {mode==='Choose workflow'?<><div className="graph-workflow-grid">{[["Plot & trace","Cartesian","Read coordinates and build a function graph.","ƒ"],["Compare models","Cartesian","Find where two relationships agree or differ.","⇄"],["Explore calculus","Cartesian","Investigate roots, slopes, tangents and signed area.","∫"],["Parametric paths","Parametric","Build a path from separate x(t) and y(t) rules.","↝"],["Polar designs","Polar","Create curves from a radius and an angle.","◎"],["Fit a data model","Data fit","Paste observations, inspect a fitted line and residuals.","▥"]].map(([name,target,desc,icon])=><button key={name} onClick={()=>{MODE(target);INTENT(name);HIDDEN([]);COLORS(defaultColours);A(1);B(0);C(0);T(1);FR(0);TO(2);D(name==='Explore calculus');TA(name==='Explore calculus');SH(name==='Explore calculus');N(false);SEC(false);CE(0);YC(0);SP(10);YS(10);F(name==='Compare models'?["x^2","2*x+1"]:name==='Explore calculus'?["x^2-4"]:["a*x^2+b*x+c"]);M('')}}><span>{icon}</span><h2>{name}</h2><p>{desc}</p><strong>Open this workflow →</strong></button>)}</div><div className="graph-first-guide"><h3>New to graphs?</h3><ol><li>Choose Plot & trace and start with the supplied parabola.</li><li>Change the coefficient a and watch the curve.</li><li>Drag across the graph to read a point; compare its table row.</li><li>Export the graph or use Compare models to explore a second rule.</li></ol><p>Use explicit multiplication: <code>2*x</code>, not <code>2x</code>. Trigonometric inputs use radians. Function names include sin, cos, tan, sqrt, abs, exp and log.</p></div></>:<div className="graph-workflow-bar"><button onClick={()=>MODE('Choose workflow')}>← Choose a workflow</button><strong>{intent}</strong><label>Graph type<select aria-label="Graph studio mode" value={mode} onChange={e=>{MODE(e.target.value);INTENT(e.target.value)}}>{["Cartesian","Parametric","Polar","Data fit"].map(m=><option key={m}>{m}</option>)}</select></label></div>}
+      {mode==='Choose workflow'?null:mode !== "Cartesian" ? (
+
         <GraphExtensions key={mode} mode={mode} />
       ) : (
         <div className="studio-layout">
           <section className="discovery-card graph-workspace">
             <div className="studio-toolbar">
-              <button onClick={() => SP(Math.max(0.5, span * 0.8))}>
+              <button onClick={() => {SP(Math.max(0.5, span * 0.8));YS(Math.max(.5,ySpan*.8))}}>
                 Zoom in
               </button>
-              <button onClick={() => SP(Math.min(100, span * 1.25))}>
+              <button onClick={() => {SP(Math.min(100, span * 1.25));YS(Math.min(1e6,ySpan*1.25))}}>
                 Zoom out
               </button>
               <button onClick={() => CE(center - span * 0.2)}>Pan left</button>
               <button onClick={() => CE(center + span * 0.2)}>Pan right</button>
-              <button onClick={() => YC(yc + span * 0.2)}>Pan up</button>
-              <button onClick={() => YC(yc - span * 0.2)}>Pan down</button>
+              <button onClick={() => YC(yc + ySpan * 0.2)}>Pan up</button>
+              <button onClick={() => YC(yc - ySpan * 0.2)}>Pan down</button>
               <button
                 onClick={() => {
                   CE(0);
                   YC(0);
-                  SP(10);
+                  SP(10);YS(10);
                 }}
               >
                 Reset view
               </button>
+              <button onClick={()=>{const sampled=Array.from({length:121},(_,i)=>valueAt(main,min+(max-min)*i/120,params)).filter(Number.isFinite);if(!sampled.length){M("No finite samples in this interval. Check the function domain.");return;}const lo=Math.min(...sampled),hi=Math.max(...sampled);YC((lo+hi)/2);YS(Math.min(1e6,Math.max((hi-lo)*1.15,1)));M("View fitted to finite samples in the current x interval. Use zoom to inspect details.")}}>Fit primary curve</button>
               <button onClick={exportSVG}>Export SVG</button>
               <button onClick={exportCSV}>Export table CSV</button>
             </div>
@@ -196,7 +181,7 @@ export default function GraphStudio() {
                     {show(min + (span * i) / 10)}
                   </text>
                   <text x="3" y={500 - i * 50 - 4} fontSize="12" fill="#334155">
-                    {show(ymin + (span * i) / 10)}
+                    {show(ymin + (ySpan * i) / 10)}
                   </text>
                 </g>
               ))}
@@ -221,7 +206,7 @@ export default function GraphStudio() {
                       />
                     ) : null;
                   })}
-                {functions.map((f, i) =>
+                {functions.map((f, i) => hidden.includes(i)?[]:
                   path(f).map((p: string, j: number) => (
                     <path
                       key={i + "-" + j}
@@ -289,7 +274,7 @@ export default function GraphStudio() {
               {show(ymax)}]. This window is not the function’s full domain or
               range.
             </p>
-            <table>
+            <div className="graph-table-scroll"><table>
               <thead>
                 <tr>
                   <th>x</th>
@@ -310,57 +295,13 @@ export default function GraphStudio() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
+            <GraphSolver expression={main} params={params} onTrace={T}/>
           </section>
           <aside className="discovery-card graph-controls">
-            <h2>Equations & analysis</h2>
+            <h2>1. Enter your equations</h2>
             <p>
-              Drag across the graph to move the traced point. Purple points mark
-              detected stationary candidates; classify them by checking slope
-              signs on both sides.
-            </p>
-            <label>
-              Table spacing
-              <input
-                aria-label="Graph table spacing"
-                type="number"
-                min=".001"
-                max="100"
-                step=".1"
-                value={tableStep}
-                onChange={(e) =>
-                  TS(
-                    Math.max(0.001, Math.min(100, Number(e.target.value) || 1)),
-                  )
-                }
-              />
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={secant}
-                onChange={(e) => SEC(e.target.checked)}
-              />
-              Secant comparison
-            </label>
-            <label>
-              Secant distance h
-              <input
-                aria-label="Secant distance"
-                type="number"
-                min="-10"
-                max="10"
-                step=".01"
-                value={step}
-                onChange={(e) => STEP(Number(e.target.value))}
-              />
-            </label>
-            <p>
-              Average slope:{" "}
-              {step !== 0
-                ? show((valueAt(main, at + step, params) - y) / step)
-                : "Undefined at h=0"}
-              . Compare it with the local tangent slope as h shrinks.
+              Enter a function using x. The first function drives all analysis. Colors identify each curve; hide a curve to compare the others. Drag on the graph to trace its values.
             </p>
             <label>
               Function family
@@ -416,9 +357,10 @@ export default function GraphStudio() {
                     F(functions.map((v, j) => (j === i ? e.target.value : v)))
                   }
                 />
+                <input type="color" aria-label={"Curve "+(i+1)+" color"} value={colours[i]||defaultColours[i]} onChange={e=>COLORS(colours.map((v,j)=>j===i?e.target.value:v))}/><label className="curve-visibility"><input type="checkbox" aria-label={"Show curve "+(i+1)} checked={!hidden.includes(i)} onChange={()=>HIDDEN(hidden.includes(i)?hidden.filter(v=>v!==i):[...hidden,i])}/>Show curve</label>
                 <button
                   disabled={functions.length === 1}
-                  onClick={() => F(functions.filter((_, j) => j !== i))}
+                  onClick={() => {F(functions.filter((_, j) => j !== i));HIDDEN(hidden.filter(v=>v!==i).map(v=>v>i?v-1:v));COLORS(defaultColours)}}
                 >
                   Remove
                 </button>
@@ -435,6 +377,49 @@ export default function GraphStudio() {
             >
               Add function
             </button>
+            <details className="graph-control-section"><summary>2. Parameters, point & calculus tools</summary>            <label>
+              Table spacing
+              <input
+                aria-label="Graph table spacing"
+                type="number"
+                min=".001"
+                max="100"
+                step=".1"
+                value={tableStep}
+                onChange={(e) =>
+                  TS(
+                    Math.max(0.001, Math.min(100, Number(e.target.value) || 1)),
+                  )
+                }
+              />
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={secant}
+                onChange={(e) => SEC(e.target.checked)}
+              />
+              Secant comparison
+            </label>
+            <label>
+              Secant distance h
+              <input
+                aria-label="Secant distance"
+                type="number"
+                min="-10"
+                max="10"
+                step=".01"
+                value={step}
+                onChange={(e) => STEP(Number(e.target.value))}
+              />
+            </label>
+            <p>
+              Average slope:{" "}
+              {step !== 0
+                ? show((valueAt(main, at + step, params) - y) / step)
+                : "Undefined at h=0"}
+              . Compare it with the local tangent slope as h shrinks.
+            </p>
             {[
               ["a", a, A],
               ["b", b, B],
@@ -487,7 +472,7 @@ export default function GraphStudio() {
                 {label as string}
               </label>
             ))}
-            <dl>
+            </details><details className="graph-control-section" open={intent!=="Plot & trace"}><summary>3. Read the mathematical results</summary>            <dl>
               <dt>Primary function domain</dt>
               <dd>{domain.domain}</dd>
               <dt>Primary function range</dt>
@@ -503,6 +488,7 @@ export default function GraphStudio() {
               <dt>Detected f₁ / f₂ intersections</dt>
               <dd>{intersections.map(show).join(", ") || "None detected"}</dd>
             </dl>
+            </details>
             <p className="notice">
               Numerical overlays use finite differences and midpoint quadrature.
               Root searches may miss tangencies or closely spaced roots.

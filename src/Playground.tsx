@@ -1,3 +1,7 @@
+import CanvasStarter from "./CanvasStarter";
+import ProjectGallery from "./ProjectGallery";
+import {guidedProjects,projectMatches} from "./guidedProjects.mjs";
+import {alignCanvasShape,fitCanvas} from "./canvasTools.mjs";
 import { circleIntersections } from "./playgroundAdvancedMath.mjs";
 import { useState, useEffect, useRef, type PointerEvent } from "react";
 import { toolGroups, constructionOptions, missions } from "./playgroundOptions";
@@ -41,7 +45,8 @@ const seed = [
   shape(2, "Circle", [680, 260], [800, 260], colors[1]),
   shape(3, "Triangle", [420, 420], [660, 580], colors[2]),
 ];
-export const projects = [
+type GuidedProject={id:string;title:string;icon:string;tag:string;guide:string;target:string;objects:Shape[];category?:string;difficulty?:string;steps?:string[];formula?:string;explanation?:string;realTask?:string;goal?:string;check?:any};
+export const projects:GuidedProject[] = [
   {
     id: "garden",
     title: "Geometry garden",
@@ -244,6 +249,8 @@ projects.push(
     ],
   },
 );
+for(const p of projects){p.steps=[p.guide,"Select a starting object. Read its construction points in the object inspector and change one dimension at a time.","Compare the measurements before and after your change. Explain whether the action changed area, boundary length, position or orientation.","Use Check my canvas for the stated mission. Export your labeled SVG and describe where this model could be useful."];p.explanation=p.objects.map(s=>`${s.kind}: initial area ${measureShape(s).area.toFixed(3)} u²; boundary / path length ${measureShape(s).length.toFixed(3)} u. Check whether your task is about covering a region or measuring a boundary.`).join(' ');p.realTask="Describe a real object or plan that this scene could model. State its units and one assumption that the drawing makes.";}
+projects.push(...guidedProjects as unknown as GuidedProject[]);
 function readProject() {
   try {
     return (
@@ -275,6 +282,7 @@ export default function Playground() {
     [labels, L] = useState(true),
     [filled, I] = useState(true),
     [zoom, Z] = useState(1),
+    [viewCenter, VC] = useState([600,360]),
     [challenge, B] = useState("rectangle"),
     [message, M] = useState(""),
     [project, J] = useState(readProject),
@@ -286,6 +294,10 @@ export default function Playground() {
     [historyStatus, HS] = useState(""),
     [toolQuery, TQ] = useState(""),
     [toolCategory, TC] = useState("Essentials"),
+    [galleryOpen,GO]=useState(false),
+    [canvasFocus,FOCUS]=useState(false),
+    [showInspector,SI]=useState(true),
+    [autoSelect,AS]=useState(true),
     [projectLimit, PL] = useState(8),
     [graph, GP] = useState(false),
     [expression, EX] = useState("a*(x-b)^2+c"),
@@ -550,6 +562,8 @@ export default function Playground() {
   const finish = () => {
     if (current.current) {
       const s = current.current;
+      if(!gesture.current?.original&&!["Point","Text"].includes(s.kind)&&measureShape(s).area<1e-8&&measureShape(s).length<1e-8){gesture.current=null;current.current=null;D(null);HS("Drag to give the shape a size, or use Add a precise shape.");return;}
+      if(autoSelect&&!gesture.current?.original)T("Select");
       commit(
         gesture.current?.original
           ? shapes.map((v) => (v.id === s.id ? s : v))
@@ -719,6 +733,7 @@ export default function Playground() {
     } else plotActive = false;
   }
   const check = () => {
+    if(activeProject?.check){M(projectMatches(activeProject,shapes)?"Your geometry meets the measured project goal. Explain why it works, then try the real-life task.":"Not yet. Read the goal and use exact coordinates or transformations. Hidden objects are not counted.");return;}
     const success = shapes
       .filter((s) => !s.hidden)
       .some((s) => {
@@ -773,7 +788,8 @@ export default function Playground() {
     );
   };
   return (
-    <div className="play-studio">
+    <div className={"play-studio "+(canvasFocus?"canvas-focus":"")}>
+      <div className="canvas-focus-bar"><strong>Geometry canvas · draw with purpose</strong><button onClick={()=>FOCUS(!canvasFocus)}>{canvasFocus?"← Back to projects & guidance":"Focus on the canvas ↗"}</button><button onClick={()=>SI(!showInspector)}>{showInspector?"Hide object panel":"Show object panel"}</button></div>
       <section className="play-hero">
         <div>
           <span className="eyebrow">YOUR PERSONAL MATHEMATICS STUDIO</span>
@@ -787,58 +803,14 @@ export default function Playground() {
           {shapes.length} objects · saved on this device
         </span>
       </section>
-      <details className="project-drawer"><summary>Start from a guided project · 16 ready-made scenes</summary><div className="play-project-heading">
-        <div>
-          <h3>Choose a guided project</h3>
-          <p>A starting scene, a question, and room to make it your own.</p>
-        </div>
-        <button onClick={() => U(!help)}>
-          {help ? "Hide" : "Show"} studio guide
-        </button>
-        <button
-          onClick={() => {
-            commit([]);
-            Q(null);
-            J("blank");
-          }}
-        >
-          Blank canvas +
-        </button>
-      </div>
-      <div className="play-project-grid">
-        {projects.slice(0, projectLimit).map((p) => (
-          <button
-            key={p.id}
-            className={project === p.id ? "selected" : ""}
-            onClick={() => {
-              commit(p.objects.map((s, i) => ({ ...s, id: Date.now() + i })));
-              Q(null);
-              J(p.id);
-              B(p.target);
-              O(p.id === "angles");
-              W(p.id === "symmetry");
-            }}
-          >
-            <span className="project-icon">{p.icon}</span>
-            <strong>{p.title}</strong>
-            <small>{p.tag}</small>
-            <span>Open project →</span>
-          </button>
-        ))}
-      </div>
-      <div className="play-project-more">
-        <button onClick={() => PL(projectLimit === 8 ? 16 : 8)}>
-          {projectLimit === 8
-            ? "Explore all 16 guided projects ↓"
-            : "Show fewer projects ↑"}
-        </button>
-      </div>
-      </details>
+      <details className="project-drawer" open={galleryOpen} onToggle={e=>GO(e.currentTarget.open)}><summary>Browse guided projects · {projects.length} activities with search & filters</summary><ProjectGallery projects={projects} active={project} onOpen={p=>{commit(p.objects.map((v:Shape,i:number)=>({...v,id:Date.now()+i})));Q(null);J(p.id);B(p.target);T("Select");O(p.objects.some((v:Shape)=>v.kind==="Angle"));W(p.id==="symmetry");Z(1);VC([600,360]);M("");GO(false)}}/></details>
       <div className="canvas-quick-guide"><strong>1. Choose a tool</strong><span>2. Drag to draw · select to move</span><span>3. Edit the object · export your work</span><p>Current tool: <b>{tool}</b>. {tool==='Select'?'Click an object to select it. Drag it to move. Use the object panel for measurements and styling.':tool==='Text'?'Click the canvas to place text, then edit its label in the object panel.':'Drag across the canvas to draw. Use Select when you want to move or style an object.'}</p></div>
       {activeProject && (
         <div className="play-guided-note">
           <strong>{activeProject.title}</strong>
           <p>{activeProject.guide}</p>
+          {activeProject.steps&&<><details className="project-step-guide"><summary>Follow the four-step project guide</summary><ol className="project-instructions">{activeProject.steps.map((step,i)=><li key={step}><strong>Step {i+1}</strong><p>{step}</p></li>)}</ol></details><details><summary>Why the mathematics works</summary><p>{activeProject.explanation}</p><h4>Use it in real life</h4><p>{activeProject.realTask}</p></details><button className="primary" onClick={check}>Check project geometry →</button><p role="status">{message}</p></>}
+
         </div>
       )}
       {help && (
@@ -860,6 +832,7 @@ export default function Playground() {
           </p>
         </div>
       )}
+      <CanvasStarter color={color} onInsert={s=>{commit([...shapes,s]);Q(s.id);T("Select");HS("Shape added. Select it in the canvas or Objects & layers to edit.")}}/>
       <div className="play-instruments">
         <strong>Instruments</strong>
         {[
@@ -1131,9 +1104,12 @@ export default function Playground() {
           </p>
         </div>
       </details>
-      <div className="play-layout">
+      <div className="canvas-workflow"><span><b>01</b> Draw or insert</span><span><b>02</b> Select & style</span><span><b>03</b> Measure & explain</span><span><b>04</b> Export your work</span></div>
+      <div className={"play-layout "+(!showInspector?"inspector-hidden":"")} tabIndex={0} aria-label="Geometry workspace: V select, R rectangle, C circle, Ctrl Z undo, Ctrl D duplicate, Delete remove" onKeyDown={e=>{if((e.target as HTMLElement).closest('input,textarea,select'))return;const key=e.key.toLowerCase();if(e.ctrlKey||e.metaKey){if(key==='z'){e.preventDefault();if(e.shiftKey&&future.length){H([...past,shapes]);S(future[0]);F(future.slice(1));Q(null)}else if(!e.shiftKey&&past.length){F([shapes,...future]);S(past[past.length-1]);H(past.slice(0,-1));Q(null)}}if(key==='d'){e.preventDefault();transform('duplicate')}}else if(key==='delete'&&picked&&!picked.locked){commit(shapes.filter(s=>s.id!==picked.id));Q(null)}else if(key==='escape'){Q(null);T('Select')}else if(key==='v')T('Select');else if(key==='r')T('Rectangle');else if(key==='c')T('Circle')}}>
+
         <aside className="play-tools">
-          <span className="eyebrow">CONSTRUCTION TOOLS</span>
+          <span className="eyebrow">YOUR DRAWING TOOLKIT</span>
+          <h3>What do you want to draw?</h3><p className="toolkit-hint">Choose a tool below, then drag on the canvas. Choose Select to move or edit your work.</p>
           <input
             aria-label="Search playground tools"
             placeholder="Find a tool…"
@@ -1173,6 +1149,7 @@ export default function Playground() {
               />
             ))}
           </div>
+          <label><input type="checkbox" checked={autoSelect} onChange={e=>AS(e.target.checked)}/>Select after drawing</label>
           <label>
             <input
               type="checkbox"
@@ -1202,7 +1179,7 @@ export default function Playground() {
           <div className="play-canvas-bar">
             <span>
               {tool === "Select"
-                ? "Select and drag an unlocked object"
+                ? "Select mode · click a shape to edit; drag it to move"
                 : tool === "Eraser"
                   ? "Click an unlocked object to erase"
                   : tool === "Point"
@@ -1239,7 +1216,8 @@ export default function Playground() {
           <svg
             ref={svg}
             className="play-canvas"
-            viewBox={`${600 - 600 / zoom} ${360 - 360 / zoom} ${1200 / zoom} ${720 / zoom}`}
+            tabIndex={0}
+            viewBox={`${viewCenter[0] - 600 / zoom} ${viewCenter[1] - 360 / zoom} ${1200 / zoom} ${720 / zoom}`}
             aria-label="Interactive geometry canvas"
             onPointerDown={(e) => {
               if (tool === "Select") {
@@ -1464,13 +1442,15 @@ export default function Playground() {
               >
                 −
               </button>
-              <button onClick={() => Z(1)}>{Math.round(zoom * 100)}%</button>
+              <button onClick={() => {Z(1);VC([600,360])}}>{Math.round(zoom * 100)}%</button>
               <button
                 aria-label="Zoom in"
                 onClick={() => Z(Math.min(2.5, zoom + 0.25))}
               >
                 +
               </button>
+              <button onClick={()=>{const fit=fitCanvas(shapes);Z(fit.zoom);VC([fit.x,fit.y])}}>Fit all objects</button>
+              <button onClick={()=>VC([viewCenter[0]-120/zoom,viewCenter[1]])}>Pan left</button><button onClick={()=>VC([viewCenter[0]+120/zoom,viewCenter[1]])}>Pan right</button><button onClick={()=>VC([viewCenter[0],viewCenter[1]-80/zoom])}>Pan up</button><button onClick={()=>VC([viewCenter[0],viewCenter[1]+80/zoom])}>Pan down</button>
               <button onClick={exportSvg}>Export SVG</button>
               <button onClick={exportProject}>Save project</button>
               <button onClick={() => file.current?.click()}>
@@ -1669,6 +1649,8 @@ export default function Playground() {
                   Dashed outline
                 </span>
               </label>
+              <label className="inspector-label">Custom color<input aria-label="Selected object color" type="color" disabled={picked.locked} value={picked.color} onChange={e=>update({color:e.target.value})}/></label>
+              <details className="object-alignment"><summary>Align on the canvas</summary><div>{["Left","Center horizontally","Right","Top","Center vertically","Bottom"].map(action=><button key={action} disabled={picked.locked} onClick={()=>{const aligned=alignCanvasShape(picked,action);commit(shapes.map(s=>s.id===picked.id?aligned:s));HS("Object aligned: "+action)}}>{action}</button>)}</div><small>Alignment uses the original 1200 × 720 drawing page, with a margin of 80 pixels. It preserves size.</small></details>
               <div className="play-transform-buttons">
                 {[
                   ["Duplicate", "duplicate"],

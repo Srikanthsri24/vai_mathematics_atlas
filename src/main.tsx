@@ -14,3 +14,5 @@ import './discovery/discovery.css';
 import './learningUpgrade.css';
 
 import './creativeUpgrade.css';
+
+import './workspaceUpgrade.css';

@@ -24,3 +24,10 @@ Symbolic calculus uses a bounded arithmetic tree and selected analytic rules, wi
 - Playground: chooser-first navigation, seven workspaces, eight design templates, palette/background/motif controls and SVG export. Essential geometry tools are shown first, with searchable collections revealing the full toolset; sixteen starting projects live in an expandable drawer.
 - Domain overview and inner domain pages: visual cards, concept roadmaps, guided starts, class/difficulty/search filtering and paginated lab exploration.
 - Verification: 34 mathematical checks; frontend type checking and production build; browser verification of live-linked prediction feedback, design customization/export invocation, domain filters and mobile bounds. Browser download-event reporting was unavailable, so file transfer completion was not confirmed through that event API.
+
+
+## Canvas and guided project revision
+- 276 projects: 20 geometric families × 13 parameterized activities + 16 original scenes. Text/topic/difficulty discovery, paginated cards, detailed guides and measured goal feedback. Inventory is explicitly described as activity variants, not hundreds of unrelated concepts.
+- Precise insertion, focus mode, automatic return to Select, color editing, alignment, fitting, pan controls and typing-aware keyboard shortcuts. Circle/arc fitting uses conservative radius bounds; ellipse bounds enclose the rotated construction box. Text fitting estimates its rendered width.
+- Graph workflow chooser, independent vertical fitting, curve visibility/colors, progressive analysis panels and a bisection solver with finite-value/residual safeguards. Numerical approximations and domain restrictions remain visible.
+- 37 mathematical checks pass, including achievability and incomplete-starter rejection for all 260 generated project goals. Browser verification covers filtered projects, exact insertion, goal feedback and the root solver.
