@@ -40,3 +40,13 @@ Symbolic calculus uses a bounded arithmetic tree and selected analytic rules, wi
 - Optional deadlines, clear +1/penalty/skipped scoring, marked questions, complete solution review, retry of missed/skipped cases; no backend or account data. Leaving/reloading resets attempts.
 - 42 tests passed, including checked golden answers for all 65 starters, integrity of all 325 cases, independent rate/counting/growth identities, filtering, uniqueness and scoring. Browser checks verified timed navigation, mixed-answer scoring (0.75 for 1 correct/1 wrong/3 skipped at −0.25), mobile no horizontal page overflow, and a four-question retry after one correct/four skips.
 - Scope references (internal documentation only): https://ssc.gov.in/for-candidates/syllabus and https://www.ibps.in/wp-content/uploads/DetailedNotification_CRP_CSA_XV_Final_for_Website_12.9.2025.pdf . Product lessons remain VisionicX-branded.
+
+
+## Competitive Exam Lab expansion — 8 October 2026
+- 120 lessons: 35 arithmetic, 38 quantitative, 33 reasoning, 14 data interpretation. Eight worked examples and twenty practice variants per concept give 960 worked examples and 2,400 practice variants; each example contains five approaches.
+- Complete catalogue topic map, searchable lesson cards, topic/level filtering and incremental display keep the expanded inventory navigable. New coverage includes fractions, decimals, divisibility, primes, mental squares, conversions, commercial arithmetic, progressions, geometry, probability, arrangements, inference, visual reflections and chart/statistical interpretation.
+- Random ten-question default or multiple selected topics; preset/custom count and timer controls; explicit negative-marking choice. Question IDs are unique per set, and insufficient pools cap the count rather than repeat questions.
+- Pure timing model accumulates time across revisits, tracks latest answer-selection elapsed time, clamps deadline expiry, prevents backward-clock negative time and finishes idempotently. Background time counts. Automatic expiry and answer/navigation guards use absolute timestamps.
+- Report includes score, attempted accuracy, deductions, total/per-question time, track summary, filters, time sorting, five-method review, same-test restart, new test and untimed retry. Self-contained escaped HTML export and browser Print / Save PDF keep all reporting frontend-only.
+- Dark page background, topbar, navigation, setup selections, results and inputs now use consistent colors. Mobile setup and report avoid horizontal overflow at 390px.
+- Coverage is a broad aptitude catalogue, not a claim of a fully mapped official syllabus for every competitive exam. Variants are parameter changes within authored models. Attempts reset on screen departure/reload.

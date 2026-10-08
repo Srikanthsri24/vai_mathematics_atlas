@@ -18,3 +18,5 @@ import './creativeUpgrade.css';
 import './workspaceUpgrade.css';
 
 import './examAcademy.css';
+
+import './examPracticeUpgrade.css';
