@@ -1,0 +1,918 @@
+.class-explorer,
+.advanced-playground {
+  max-width: 1500px;
+  margin: auto;
+}
+.class-hero,
+.playground-launch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  padding: 42px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 90% 10%, #355eab55, transparent 40%),
+    linear-gradient(125deg, #142746, #213f72);
+  color: #fff;
+  overflow: hidden;
+}
+.class-hero .eyebrow,
+.playground-launch .eyebrow {
+  color: #a7c8ff;
+}
+.class-hero h1 {
+  font-size: clamp(32px, 3.5vw, 56px);
+  line-height: 1.13;
+  margin: 18px 0;
+}
+.class-hero h1 em {
+  color: #bcd7ff;
+  font-style: normal;
+}
+.class-hero p,
+.playground-launch p {
+  max-width: 650px;
+  line-height: 1.8;
+  color: #d3def0;
+}
+.class-orbit {
+  position: relative;
+  flex: 0 0 215px;
+  aspect-ratio: 1;
+  border: 1px solid #7294c766;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  box-shadow:
+    0 0 0 20px #557dbe13,
+    0 0 0 40px #557dbe0b;
+}
+.class-orbit strong {
+  font-size: 80px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.class-orbit small {
+  letter-spacing: 0.2em;
+  color: #b8d0f6;
+}
+.class-orbit > span {
+  position: absolute;
+  font: italic 24px Georgia;
+  color: #a5c8ff;
+  top: 22px;
+  left: -15px;
+}
+.class-orbit > span:nth-of-type(2) {
+  top: auto;
+  left: auto;
+  bottom: 18px;
+  right: -18px;
+}
+.class-selector {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px 0;
+}
+.class-selector button {
+  display: grid;
+  gap: 6px;
+  padding: 13px 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+}
+.class-selector strong {
+  font-size: 24px;
+}
+.class-selector small {
+  color: var(--muted);
+}
+.class-selector button.selected {
+  background: #234f91;
+  color: #fff;
+  border-color: #234f91;
+  box-shadow: 0 6px 18px #234f9130;
+}
+.class-selector button.selected small {
+  color: #d0e2ff;
+}
+.class-overview {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 36px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+}
+.class-overview h2 {
+  font-size: 30px;
+  margin: 12px 0;
+}
+.class-overview p,
+.class-overview li {
+  line-height: 1.75;
+}
+.class-overview aside {
+  padding: 24px;
+  background: #f0f5ff;
+  border-radius: 16px;
+}
+.class-overview aside h3 {
+  margin-top: 0;
+}
+.class-overview a,
+.foundation-callout a {
+  font-weight: 600;
+  color: #245398;
+}
+.class-metrics {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.class-metrics span {
+  display: grid;
+  font-size: 13px;
+  color: var(--muted);
+}
+.class-metrics strong {
+  font-size: 28px;
+  color: var(--ink);
+}
+.class-roadmap {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 36px;
+}
+.class-roadmap article {
+  padding: 20px;
+  border-radius: 16px;
+  background: #edf3fd;
+  border-top: 3px solid #739bdd;
+}
+.class-roadmap article > span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #466aa3;
+}
+.class-roadmap h3 {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 12px 0;
+}
+.class-roadmap p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #526681;
+}
+.class-search {
+  display: grid;
+  gap: 8px;
+  max-width: 500px;
+}
+.class-search input,
+.formula-guide input,
+.experiment-controls input[type="number"],
+.experiment-stage input,
+.precision-controls input {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  padding: 12px;
+  max-width: 100%;
+}
+.class-domains {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0 24px;
+}
+.class-domains button,
+.guide-tabs button,
+.precision-controls button {
+  padding: 10px 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+}
+.class-domains button.selected,
+.guide-tabs button.selected {
+  background: #234f91;
+  color: #fff;
+  border-color: #234f91;
+}
+.class-lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.class-lesson {
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.class-lesson:hover {
+  box-shadow: 0 10px 30px #254d8c15;
+  transform: translateY(-3px);
+}
+.class-lesson h3 {
+  font-size: 22px;
+  margin: 28px 0 12px;
+  max-width: 85%;
+  line-height: 1.3;
+}
+.class-lesson p {
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 14px;
+}
+.class-lesson strong {
+  color: #2557a6;
+  font-size: 13px;
+}
+.class-lesson-symbol {
+  position: absolute;
+  right: 24px;
+  top: 28px;
+  font: 40px Georgia;
+  color: #bad0f2;
+}
+.class-footnote {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 28px 0;
+}
+.foundation-callout {
+  padding: 24px 30px;
+  border-radius: 18px;
+  background: #e9f1fe;
+}
+.foundation-callout h3 {
+  margin: 0 0 12px;
+}
+.unified-journey {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px 0 12px;
+}
+.unified-journey button {
+  border: 1px solid #d4e0f1;
+  background: #edf3fd;
+  color: #254773;
+  padding: 13px 8px;
+  min-height: 80px;
+  font-size: 13px;
+  line-height: 1.5;
+  border-radius: 13px;
+}
+.unified-journey button.selected {
+  background: #234f91;
+  color: white;
+  border-color: #234f91;
+  box-shadow: 0 5px 15px #234f9120;
+}
+.lab-toolbar .view-switch .selected {
+  background: #234f91;
+  color: #fff;
+}
+.unified-journey small {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+.journey-direction {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 12px 0 24px;
+}
+.lesson-panel.rich-lesson,
+.formula-guide {
+  padding: 30px;
+  margin: 24px 0;
+  line-height: 1.8;
+  border-radius: 20px;
+}
+.rich-lesson h2,
+.guide-heading h2 {
+  font-size: clamp(25px, 2.4vw, 34px);
+  line-height: 1.3;
+  margin: 16px 0;
+}
+.rich-lesson p,
+.formula-guide p {
+  max-width: 100%;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.85;
+}
+.guide-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0 26px;
+}
+.explanation-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+}
+.explanation-grid article {
+  min-width: 0;
+}
+.explanation-grid h3 {
+  font-size: 19px;
+  color: var(--ink);
+  margin-top: 20px;
+}
+.explanation-grid .variable-table {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+.reasoned-steps {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  counter-reset: reason;
+}
+.reasoned-steps li {
+  padding: 20px 24px;
+  background: #f0f5fd;
+  border: 1px solid #dbe5f4;
+  border-radius: 14px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.reasoned-steps li strong {
+  color: #2756a0;
+}
+.reasoned-steps code {
+  font-size: 14px;
+  color: #214c8d;
+  background: #e1ebfa;
+  padding: 5px 8px;
+  border-radius: 5px;
+  white-space: normal;
+}
+.reasoned-steps p {
+  margin: 10px 0 0;
+  font-size: 15px;
+}
+.application-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.formula-guide .worked-example {
+  min-width: 0;
+  background: #f9fbfe;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: none;
+}
+.worked-example li {
+  line-height: 1.85;
+  margin-bottom: 12px;
+}
+.formula-guide details {
+  margin: 20px 0;
+}
+.formula-guide summary {
+  cursor: pointer;
+  color: #245398;
+  font-weight: 600;
+  line-height: 1.7;
+}
+.application-challenge {
+  padding: 24px;
+  background: #eff5ff;
+  border-radius: 16px;
+}
+.application-challenge label {
+  display: grid;
+  gap: 8px;
+  max-width: 400px;
+  margin: 20px 0;
+}
+.application-challenge .primary {
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+.substitution-steps li {
+  overflow-wrap: anywhere;
+}
+.substitution-steps code {
+  white-space: normal;
+}
+.rich-lesson label {
+  display: grid;
+  gap: 8px;
+  max-width: 400px;
+}
+.rich-lesson input {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.rich-lesson table {
+  width: 100%;
+  font-size: 14px;
+}
+.rich-lesson th,
+.rich-lesson td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.playground-launch {
+  padding: 32px;
+  margin-bottom: 20px;
+}
+.playground-launch h2 {
+  font-size: 36px;
+  line-height: 1.2;
+  margin: 14px 0;
+}
+.playground-launch > a {
+  flex-shrink: 0;
+  padding: 14px 20px;
+  border: 1px solid #7c9ecc77;
+  border-radius: 12px;
+  color: #e4efff;
+  font-weight: 600;
+}
+.playground-modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0 28px;
+}
+.playground-modes button {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  text-align: left;
+  gap: 6px 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+}
+.playground-modes button > span {
+  grid-row: span 2;
+  font-size: 28px;
+  align-self: center;
+  color: #577bbb;
+}
+.playground-modes small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.playground-modes button.selected {
+  background: #e8f0ff;
+  border-color: #6e97d7;
+  box-shadow: inset 0 0 0 1px #6e97d7;
+}
+.play-experiment-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 22px;
+}
+.experiment-stage,
+.experiment-controls {
+  min-width: 0;
+}
+.experiment-stage svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  background: #f9fbfe;
+  border-radius: 14px;
+  margin: 20px 0;
+}
+.experiment-stage p,
+.experiment-controls p,
+.experiment-controls li {
+  line-height: 1.85;
+  color: var(--ink);
+}
+.experiment-controls > label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.experiment-controls input[type="range"] {
+  width: 100%;
+  accent-color: #2557a6;
+}
+.experiment-controls > button {
+  padding: 10px 14px;
+  border-radius: 9px;
+  margin: 4px;
+  border: 1px solid var(--line);
+  background: #edf3fd;
+  color: var(--ink);
+}
+.experiment-controls select {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  max-width: 100%;
+}
+.experiment-readouts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+.experiment-readouts span {
+  display: grid;
+  gap: 8px;
+  background: #edf3fd;
+  border-radius: 12px;
+  padding: 16px 20px;
+  flex: 1;
+  font-size: 12px;
+  color: #536987;
+}
+.experiment-readouts strong {
+  font-size: 24px;
+  color: #17345c;
+}
+.experiment-stage > button {
+  padding: 12px 18px;
+  border-radius: 9px;
+  margin: 10px 8px 10px 0;
+}
+.experiment-stage > label {
+  display: grid;
+  gap: 8px;
+  max-width: 360px;
+  margin: 16px 0;
+}
+.algebra-machine {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 60px 0;
+  flex-wrap: wrap;
+}
+.algebra-machine article {
+  flex: 1;
+  min-width: 130px;
+  padding: 25px;
+  background: #e8f0ff;
+  border-radius: 16px;
+  display: grid;
+  gap: 20px;
+}
+.algebra-machine small {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #4d69a1;
+}
+.algebra-machine strong {
+  font-size: 36px;
+  color: #234f91;
+}
+.algebra-machine > span {
+  font-size: 30px;
+  color: #668bbd;
+}
+.precision-controls {
+  padding: 22px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.precision-controls > label {
+  display: grid;
+  gap: 8px;
+  flex: 1;
+  min-width: 140px;
+  max-width: 220px;
+}
+.precision-controls .button-row,
+.precision-controls > p {
+  width: 100%;
+}
+.graph-mode-tabs {
+  margin: 22px 0;
+}
+.graph-workspace svg {
+  touch-action: none;
+  cursor: crosshair;
+}
+.graph-controls textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  line-height: 1.6;
+  font-family: monospace;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: #fff;
+}
+.graph-controls input[type="number"] {
+  padding: 10px;
+}
+.graph-controls input[type="checkbox"] {
+  width: auto;
+}
+.graph-controls details {
+  margin: 18px 0;
+  line-height: 1.8;
+}
+.graph-controls summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+.graph-preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 18px 0;
+}
+.graph-preset-grid button {
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #edf3fd;
+  color: var(--ink);
+}
+.graph-table-scroll {
+  overflow-x: auto;
+}
+.graph-controls dd {
+  overflow-wrap: anywhere;
+}
+.formula-model-main {
+  min-width: 0;
+}
+.formula-model-main > .formula-condition {
+  margin-top: 20px;
+}
+.formula-guide,
+.lesson-panel {
+  overflow-wrap: break-word;
+}
+.formula-guide .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 0;
+}
+.formula-workbench .substitution-steps p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.formula-guide .guide-heading .eyebrow {
+  color: #526c92;
+}
+[data-theme="dark"] .class-overview,
+[data-theme="dark"] .class-lesson,
+[data-theme="dark"] .class-selector button,
+[data-theme="dark"] .guide-tabs button,
+[data-theme="dark"] .class-domains button,
+[data-theme="dark"] .playground-modes button {
+  background: #18263c;
+  color: #e4edf9;
+  border-color: #354963;
+}
+[data-theme="dark"] .class-overview aside,
+[data-theme="dark"] .class-roadmap article,
+[data-theme="dark"] .foundation-callout,
+[data-theme="dark"] .reasoned-steps li,
+[data-theme="dark"] .application-challenge,
+[data-theme="dark"] .formula-guide .worked-example,
+[data-theme="dark"] .experiment-readouts span,
+[data-theme="dark"] .algebra-machine article {
+  background: #20334f;
+  border-color: #354963;
+}
+[data-theme="dark"] .rich-lesson p,
+[data-theme="dark"] .formula-guide p,
+[data-theme="dark"] .class-lesson p,
+[data-theme="dark"] .experiment-stage p,
+[data-theme="dark"] .experiment-controls p,
+[data-theme="dark"] .experiment-controls li {
+  color: #c9d7ec;
+}
+[data-theme="dark"] .class-selector button.selected,
+[data-theme="dark"] .guide-tabs button.selected {
+  background: #305b9b;
+}
+[data-theme="dark"] .playground-modes button.selected {
+  background: #294771;
+}
+[data-theme="dark"] .experiment-readouts strong,
+[data-theme="dark"] .algebra-machine strong,
+[data-theme="dark"] .explanation-grid h3 {
+  color: #dceaff;
+}
+@media (max-width: 1200px) {
+  .unified-journey {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .class-roadmap {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .class-lesson-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .class-selector {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .class-hero {
+    padding: 30px;
+  }
+  .class-orbit {
+    flex-basis: 170px;
+  }
+  .class-orbit strong {
+    font-size: 64px;
+  }
+}
+@media (max-width: 900px) {
+  .class-overview,
+  .explanation-grid,
+  .play-experiment-layout {
+    grid-template-columns: 1fr;
+  }
+  .playground-launch {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .experiment-controls {
+    display: block;
+  }
+  .class-hero p {
+    font-size: 14px;
+  }
+  .class-hero {
+    gap: 22px;
+  }
+  .class-orbit {
+    flex-basis: 135px;
+  }
+  .class-orbit strong {
+    font-size: 52px;
+  }
+  .playground-modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .class-hero {
+    padding: 25px;
+    min-height: 260px;
+  }
+  .class-orbit {
+    display: none;
+  }
+  .class-hero h1 {
+    font-size: 34px;
+  }
+  .class-overview {
+    padding: 22px;
+    gap: 18px;
+  }
+  .class-overview h2 {
+    font-size: 25px;
+  }
+  .class-roadmap {
+    grid-template-columns: 1fr 1fr;
+  }
+  .class-lesson-grid,
+  .application-grid,
+  .reasoned-steps {
+    grid-template-columns: 1fr;
+  }
+  .class-lesson {
+    padding: 23px;
+  }
+  .unified-journey {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 10px;
+    max-width: 100%;
+  }
+  .unified-journey button {
+    flex: 0 0 145px;
+    scroll-snap-align: start;
+    min-height: 70px;
+  }
+  .lesson-panel.rich-lesson,
+  .formula-guide {
+    padding: 22px;
+  }
+  .guide-tabs button {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+  .playground-launch {
+    padding: 24px;
+  }
+  .playground-launch h2 {
+    font-size: 30px;
+  }
+  .playground-modes button {
+    padding: 13px;
+    gap: 8px;
+    grid-template-columns: 25px 1fr;
+  }
+  .playground-modes button > span {
+    font-size: 21px;
+  }
+  .playground-modes strong {
+    font-size: 13px;
+  }
+  .playground-modes small {
+    font-size: 11px;
+  }
+  .experiment-stage .algebra-machine {
+    margin: 24px 0;
+    gap: 8px;
+  }
+  .algebra-machine article {
+    padding: 16px;
+    min-width: 75px;
+  }
+  .algebra-machine > span {
+    font-size: 18px;
+  }
+  .algebra-machine strong {
+    font-size: 27px;
+  }
+  .rich-lesson table {
+    font-size: 11px;
+  }
+  .rich-lesson th,
+  .rich-lesson td {
+    padding: 7px 3px;
+  }
+  .class-overview aside {
+    padding: 20px;
+  }
+  .class-roadmap article:last-child {
+    grid-column: span 2;
+  }
+  .graph-controls {
+    min-width: 0;
+  }
+  .precision-controls {
+    padding: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .class-lesson {
+    transition: none;
+  }
+  .class-lesson:hover {
+    transform: none;
+  }
+}
+
+[data-theme="dark"] .class-search input,
+[data-theme="dark"] .formula-guide input,
+[data-theme="dark"] .experiment-stage input,
+[data-theme="dark"] .precision-controls input,
+[data-theme="dark"] .graph-controls textarea {
+  background: #17283f;
+  color: #deebff;
+  border-color: #3a506e;
+}
+
+[data-theme="dark"] .unified-journey button {
+  background: #20334f;
+  color: #dbe7fa;
+  border-color: #354963;
+}
+[data-theme="dark"] .unified-journey button.selected {
+  background: #305b9b;
+}

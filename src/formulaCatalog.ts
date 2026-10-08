@@ -1,3 +1,4 @@
+import {additionalFormulas} from './additionalFormulas';
 export type FormulaEntry={id:string;title:string;domain:string;difficulty:string;tex:string;expression:string;defaults:Record<string,number>;condition:string;unit:string;keywords:string};
 export const formulas:FormulaEntry[]=[];
 function add(domain:string,difficulty:string,rows:string){for(const row of rows.trim().split('\n')){const [id,title,tex,expression,input,condition='Use consistent units and the stated domain.',unit='value']=row.split('~');const defaults=Object.fromEntries(input.split(',').map(pair=>{const [key,value]=pair.split('=');return [key,Number(value)]}));formulas.push({id,title,domain,difficulty,tex,expression,defaults,condition,unit,keywords:`${title} ${domain} ${Object.keys(defaults).join(' ')}`})}}
@@ -378,6 +379,7 @@ complex-modulus~Complex modulus~|z|=\sqrt{a^2+b^2}~sqrt(a^2+b^2)~a=3,b=4~z=a+bi.
 complex-product-real~Complex product real part~Re(zw)=ac-bd~a*c-b*d~a=2,b=3,c=1,d=2~z=a+bi and w=c+di.~value
 complex-product-imag~Complex product imaginary part~Im(zw)=ad+bc~a*d+b*c~a=2,b=3,c=1,d=2~z=a+bi and w=c+di.~value
 `);
+formulas.push(...additionalFormulas);
 // Duplicate mathematical names across domains have stable, domain-qualified IDs.
 const seen=new Set<string>();for(const f of formulas){if(seen.has(f.id))f.id=f.domain.toLowerCase().replace(/[^a-z]+/g,'-')+'-'+f.id;if(seen.has(f.id))throw Error('Duplicate formula '+f.id);seen.add(f.id)}
 export const formulaDomains=[...new Set(formulas.map(f=>f.domain))];

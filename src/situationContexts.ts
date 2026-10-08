@@ -100,6 +100,30 @@ add('vector-magnitude dot-product vector-angle unit-vector-x cross-x cross-y cro
 add('matrix-det matrix-trace matrix-x matrix-y rotation-x rotation-y matrix-area','Computer graphics transform','A graphics worksheet applies a matrix or rotation and checks coordinate or area effects.');
 add('distance-3d plane-distance','3D survey map','A survey worksheet measures an orthonormal 3D distance or a perpendicular distance to a plane.');
 add('complex-modulus complex-product-real complex-product-imag','Complex signal worksheet','A signal-processing worksheet represents two components by a complex number and checks magnitude or multiplication components.');
+add('weighted-interpolation','Sensor interpolation','A sensor reading between two calibrated endpoints is modeled as a fraction of their separation.');
+add('quadratic-completed quadratic-axis root-separation','Reflector profile design','A quadratic profile is inspected for its axis, turning-point form and the separation of its real intercepts.');
+add('cubic-factor-remainder inverse-quadratic-positive absolute-v-shape','Animation curve controller','An animation controller evaluates a supplied curve, retaining the stated input branch and domain.');
+add('max-two min-two','Delivery comparison desk','Two comparable delivery quantities are checked to select the larger or smaller measurement.');
+add('harmonic-three geometric-three rms-two','Measurement summary desk','A technician selects the stated mean for positive rates, multiplicative scales or squared signal measurements.');
+add('circle-sagitta circle-chord-distance circle-radius-from-chord circle-tangent-length','Circular arch survey','A circular arch or tangent segment is measured using the radius, chord and perpendicular distances.');
+add('triangle-median triangle-bisector triangle-angle-cosine','Triangular frame survey','A surveyor knows a triangular frame’s three side lengths and needs an internal segment or angle.');
+add('ellipse-eccentricity','Elliptical panel design','An elliptical panel is compared by its semi-major and semi-minor axes to quantify its departure from a circle.');
+add('tangent-square-value normal-square-value secant-cubic','Motion curve inspection','A motion-curve worksheet compares nearby rates, tangent approximations and perpendicular normal directions.');
+add('limit-square-error epsilon-delta-square','Square panel tolerance','A panel’s squared side measurement is checked against a requested output-error tolerance near its target input.');
+add('derivative-logistic logistic-population','Habitat growth worksheet','An idealized population model includes a carrying capacity and slows its growth as the population approaches that capacity.');
+add('integral-quadratic','Tank inflow worksheet','A supplied quadratic inflow curve is accumulated over a finite time interval, preserving the sign of the model.');
+add('taylor-exp-quadratic','Local growth approximation','A numerical program approximates an exponential close to zero with a quadratic Taylor polynomial, rather than claiming exact equality.');
+add('weighted-variance-two pooled-mean standard-error-mean','School measurement team','Two weighted readings or group summaries are combined under the assumptions of the specified summary statistic.');
+add('normal-density exponential-density exponential-cdf uniform-density','Waiting-time and measurement model','A probability worksheet evaluates a stated continuous density or cumulative probability. A density value is not the probability of one exact reading.');
+add('at-least-one bernoulli-variance','Independent quality trials','An inspection worksheet assumes independent binary trials with the same success probability.');
+add('inclusion-three','Overlapping club survey','A survey tracks three clubs and all pairwise and triple overlaps without counting shared members more than once.');
+add('odds-to-probability probability-to-odds','Outcome report conversion','A report converts success-to-failure odds to a success share, or performs the inverse conversion.');
+add('cross-magnitude scalar-triple parallelepiped-volume','Spatial frame construction','A frame designer uses edge-vector components to find a spanned area or a signed or unsigned volume.');
+add('matrix-inverse-entry matrix-eigenvalue-plus matrix-eigenvalue-minus','Graphics transformation analysis','A graphics worksheet inspects whether a matrix can be inverted and how its invariant directions are scaled.');
+add('complex-quotient-real complex-quotient-imag','Planar signal arithmetic','A numerical signal worksheet divides two complex-component quantities using a nonzero denominator.');
+add('annuity-future annuity-present loan-payment effective-annual','Periodic payment worksheet','A student compares idealized fixed-rate payment and deposit schedules with consistent periods. Fees and variable rates are outside this teaching model.');
+add('break-even-units unit-contribution','School craft stall plan','A class stall assumes constant selling price and variable cost per item when estimating contribution and break-even quantity.');
+add('half-life-remaining','Exponential decay worksheet','A teaching model follows the remaining amount under a constant positive half-life and consistent time units.');
 export function contextFor(id:string):SituationContext{const c=contexts[id];if(!c)throw new Error('Missing situation context: '+id);return c}
 export const contextIds=Object.keys(contexts);
 const settings:Record<string,[string,string][]>={

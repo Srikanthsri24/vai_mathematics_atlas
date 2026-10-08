@@ -10,3 +10,5 @@ createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></Re
 import './upgrade.css';
 
 import './discovery/discovery.css';
+
+import './learningUpgrade.css';

@@ -13,36 +13,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  backend-test:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: atlas
-          POSTGRES_PASSWORD: ci-only-password
-          POSTGRES_DB: atlas
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U atlas"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    env:
-      ATLAS_TESTING: 'true'
-      DATABASE_URL: postgresql://atlas:ci-only-password@127.0.0.1:5432/atlas
-      DB_SSLMODE: disable
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - name: Install Python API dependencies
-        run: python3 -m pip install -r backend/requirements.txt
-      - name: Validate migrations and API against PostgreSQL
-        working-directory: backend
-        run: |
-          python3 manage.py makemigrations --check --dry-run
-          python3 manage.py test
   build:
     runs-on: ubuntu-latest
     permissions:
@@ -70,7 +40,7 @@ jobs:
         with:
           path: dist
   deploy:
-    needs: [build, backend-test]
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       pages: write

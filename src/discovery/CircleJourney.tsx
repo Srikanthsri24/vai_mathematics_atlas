@@ -45,8 +45,7 @@ export default function CircleJourney() {
     [feedback, F] = useState(""),
     [hint, H] = useState(false),
     [speed, SP] = useState(false),
-    [attempts, AT] = useState<Attempt[]>(() => readStore("vx-mastery-v2", [])),
-    [savedStatus, SS] = useState("");
+    [attempts, AT] = useState<Attempt[]>(() => readStore("vx-mastery-v2", []));
   const started = useRef(Date.now()),
     diagram = useRef<SVGSVGElement>(null),
     bounds = circleBounds(r, pieces),
@@ -171,19 +170,6 @@ export default function CircleJourney() {
     writeStore("vx-observations", next);
     W("");
   };
-  const save = () => {
-    writeStore("vx-saved-experiments", [
-      ...readStore<unknown[]>("vx-saved-experiments", []),
-      {
-        topic: "circle-area",
-        radius: r,
-        pieces,
-        step,
-        at: new Date().toISOString(),
-      },
-    ]);
-    SS("Experiment saved on this device.");
-  };
   const exportDiagram = () => {
     if (!diagram.current) return;
     const xml = diagram.current.outerHTML.replace(
@@ -237,7 +223,6 @@ export default function CircleJourney() {
           See → Build → Discover → Derive → Understand → Solve → Use → Master
         </p>
         <div className="journey-actions">
-          <button onClick={save}>Save experiment</button>
           <button onClick={exportDiagram}>Export diagram</button>
           <button
             onClick={() => {
@@ -251,7 +236,6 @@ export default function CircleJourney() {
             Reset experiment
           </button>
         </div>
-        <p role="status">{savedStatus}</p>
       </div>
       <nav className="discovery-timeline" aria-label="Discovery stages">
         {stages.map((name, i) => (

@@ -59,7 +59,7 @@ export default function CurriculumNavigator({
           <div className="notice">
             This programme is separate from the school syllabus. Linked core
             labs are available; programme-specific extensions are awaiting
-            content review.
+            coverage checks.
           </div>
           <div className="discovery-grid">
             {competitiveProgramme.map((p) => (
