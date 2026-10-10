@@ -50,3 +50,12 @@ Symbolic calculus uses a bounded arithmetic tree and selected analytic rules, wi
 - Report includes score, attempted accuracy, deductions, total/per-question time, track summary, filters, time sorting, five-method review, same-test restart, new test and untimed retry. Self-contained escaped HTML export and browser Print / Save PDF keep all reporting frontend-only.
 - Dark page background, topbar, navigation, setup selections, results and inputs now use consistent colors. Mobile setup and report avoid horizontal overflow at 390px.
 - Coverage is a broad aptitude catalogue, not a claim of a fully mapped official syllabus for every competitive exam. Variants are parameter changes within authored models. Attempts reset on screen departure/reload.
+
+
+## Dark theme repair — 10 October 2026
+- Central final stylesheet reconciles fixed light colors with navy surfaces, readable muted text, distinct control borders, selected-state colors, focus outlines and native dark form controls.
+- Removed the home hero brightness filter; repaired hero text, analytical panels, domain artwork labels, formula paths, class cards, discovery studios, playground tools/projects and exam states.
+- Shared theme hook updates WebGL scene backgrounds, ground surfaces and label textures without remounting orbit controls. SVG graph backgrounds, axes/grid labels and primary curves receive dark display colors; original mathematical colors and export data remain intact. Design artwork keeps its chosen palette for printable output.
+- Saved theme applies in the document head before React starts; the browser theme-color follows the toggle. Light theme and print styling remain separate.
+- Desktop text contrast inspection across main routes and playground workspaces, visual checks of home, formulas, graph and fraction lab, mobile checks at 390px. Fixed mobile workspace names overflowing their cards.
+- 48 existing mathematical/content tests pass; TypeScript and production build checked before publication.

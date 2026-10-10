@@ -916,3 +916,5 @@
 [data-theme="dark"] .unified-journey button.selected {
   background: #305b9b;
 }
+
+@media(max-width:480px){.playground-modes{grid-template-columns:1fr}.playground-modes button{grid-template-columns:25px minmax(0,1fr)}.playground-modes strong,.playground-modes small{min-width:0;overflow-wrap:anywhere}}

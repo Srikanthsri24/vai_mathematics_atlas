@@ -20,3 +20,5 @@ import './workspaceUpgrade.css';
 import './examAcademy.css';
 
 import './examPracticeUpgrade.css';
+
+import './darkTheme.css';

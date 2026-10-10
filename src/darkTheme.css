@@ -1,0 +1,89 @@
+/* Theme repairs are deliberately last in the cascade: older screens contain light-only colors. */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101b2b;
+  --paper: #101b2b;
+  --panel: #19283d;
+  --surface: #19283d;
+  --soft: #223650;
+  --ink: #edf3fc;
+  --muted: #b8c7db;
+  --line: #405572;
+  --green: #9dccff;
+  --green-deep: #b8d9ff;
+  --theme-accent: #9dccff;
+  --theme-selected: #315f99;
+  background: var(--bg);
+  color: var(--ink);
+}
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="dark"] :is(body,.app,.app-content) { background: var(--bg); color: var(--ink); }
+html[data-theme="dark"] :is(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="color"]),select,textarea) {
+  background-color: #122238; color: var(--ink); border-color: #536b8b;
+}
+html[data-theme="dark"] :is(input,textarea)::placeholder { color: #aebed3; opacity: 1; }
+html[data-theme="dark"] :is(input[type="checkbox"],input[type="radio"],input[type="range"]) { accent-color: #8cc1ff; }
+html[data-theme="dark"] :is(button,a,input,select,textarea,summary):focus-visible { outline-color: #f6c879; }
+html[data-theme="dark"] :is(kbd,.sidebar-label,.welcome-line,.hero-proof,.hero-art-caption,.home-stats span,.eyebrow,.card-copy p,.card-meta,.site-footer,.topic-footer,.stage-note,.controls-heading>span,.slider small,.slider>span,.toggle-row,.control-tip small,.control-tip p,.metric small,.class-strip small,.discovery-banner p) { color: var(--muted); }
+html[data-theme="dark"] :is(.text-button,.home-stats strong,.class-strip strong,.classes-grid strong,.topic-breadcrumb button,.topic-breadcrumb strong,.slider strong,.equivalent,.equivalent strong,.big-fraction,.insight strong,.metric strong,.domain-number,.domains-grid button>span:last-child) { color: var(--theme-accent); }
+html[data-theme="dark"] .hero { background: radial-gradient(ellipse at 90% 20%,#29466a,transparent 60%),linear-gradient(120deg,#172b43,#1b334d); border-color: var(--line); filter: none; }
+html[data-theme="dark"] .hero h1 { color: #edf3fc; }
+html[data-theme="dark"] .hero h1 em { color: #a7ceff; }
+html[data-theme="dark"] .hero p { color: #c5d4e7; }
+html[data-theme="dark"] .hero-pill { background: #294460; color: #d9eaff; }
+html[data-theme="dark"] .hero-universe { background: #132339 !important; border: 1px solid #466180; }
+html[data-theme="dark"] :is(.universe-heading span,.universe-heading strong,.hero-universe>p,.universe-tabs button) { color: #d4e5f8; }
+html[data-theme="dark"] .universe-tabs button { background: #223b58; border-color: #486281; }
+html[data-theme="dark"] .universe-tabs button[aria-pressed="true"] { background: #376aa7 !important; color: #fff !important; }
+html[data-theme="dark"] :is(.discovery-banner,.insight,.experiment-prompt,.play-status,.banner-icon) { background: #223650; color: #c8d9ed; border-color: var(--line); }
+html[data-theme="dark"] :is(.insight p,.discovery-banner button) { color: #c8d9ed; }
+html[data-theme="dark"] :is(.analytics-hero,.play-hero,.challenge-journey) { background: linear-gradient(120deg,#1b334d,#273d59); border-color: var(--line); }
+html[data-theme="dark"] :is(.analytics-hero h1 em,.play-hero h2,.challenge-journey strong) { color: #bfddff; }
+html[data-theme="dark"] :is(.analytics-hero p,.play-hero p,.play-hero .eyebrow,.challenge-journey p,.challenge-journey strong small) { color: #c4d4e8; }
+html[data-theme="dark"] .journey-orbit { border-color: #5c789d; }
+html[data-theme="dark"] .journey-orbit>span:not(.orbit-center) { background: #253e5a; color: #e0edfc; border-color: #6887ad; }
+html[data-theme="dark"] :is(.class-overview a,.foundation-callout a,.class-lesson strong,.class-roadmap article>span,.reasoned-steps li strong,.formula-guide summary,.formula-guide .guide-heading .eyebrow,.discovery-card a,.concept-record a,.notice a,.circle-journey .diagram-note,.studio-number,.studio-label span) { color: #add0ff; }
+html[data-theme="dark"] :is(.class-roadmap p,.path-navigation span,.experiment-inputs small,.design-controls p,.domain-world p,.domain-roadmap p,.domain-lab-copy p,.design-template-grid button small,.project-gallery header p,.guided-project-cards small,.guided-project-cards p,.project-inventory-note,.toolkit-hint,.object-alignment small,.exact-insert p,.exact-insert small,.design-purpose p,.graph-workflow-grid button p,.graph-first-guide li,.graph-first-guide p,.graph-solver p,.graph-controls .notice,.hierarchy summary span,.concept-record small,.coverage-grid span,.diagram-note) { color: #bdcde2; }
+html[data-theme="dark"] :is(.workspace-switch,.design-template-grid button,.design-preview,.design-controls,.project-drawer,.domain-world,.domain-roadmap article,.domain-filter,.domain-lab-grid>button,.discovery-visual,.discovery-context,.circle-journey details,blockquote) { background: var(--panel); color: var(--ink); border-color: var(--line); }
+html[data-theme="dark"] :is(.quick-start-actions button,.studio-actions button,.path-navigation button,.workspace-switch button,.design-controls button,.precision-controls button,.experiment-controls>button,.graph-preset-grid button,.domain-next button,.domain-next a,.discovery-page button,.discovery-journey button,.circle-journey button,.worked-example button,.lesson-panel>button,.concept-connections button,.prediction-options button) { background: #29425f; color: #e0edfc; border-color: #506987; }
+html[data-theme="dark"] :is(.domain-world-art,.domain-lab-art,.tone-1 .domain-world-art,.tone-2 .domain-world-art,.tone-3 .domain-world-art,.tone-1.domain-lab-art,.tone-2.domain-lab-art,.tone-3.domain-lab-art) { background: #243950; }
+html[data-theme="dark"] :is(.domain-world-art>span,.domain-world-art small,.domain-world>div:last-child,.domain-back,.domain-roadmap article>span,.domain-lab-art>span,.domain-lab-art small,.design-template-grid button span,.method-number,.experiment-result strong,.project-drawer>summary,.play-guided-note summary,.exact-insert summary,.project-instructions strong,.guided-project-cards b,.graph-workflow-grid button>span,.graph-workflow-grid button strong,.graph-control-section summary,.graph-solver summary,.algebra-machine small,.algebra-machine>span) { color: #afcfff; }
+html[data-theme="dark"] .domain-lab-art small { background: #152940; }
+html[data-theme="dark"] .reasoned-steps code { background: #2c4767; color: #deecff; }
+html[data-theme="dark"] :is(.formula-path-tabs button,.canvas-quick-guide,.canvas-workflow,.object-alignment,.experiment-result div,.confidence-grid article,.design-purpose,.graph-first-guide,.solver-result,.experiment-readouts span) { background: var(--soft); color: var(--ink); border-color: var(--line); }
+html[data-theme="dark"] .play-tools .tool-group>button span { color: #b7d4f7; }
+html[data-theme="dark"] .play-canvas-bar button { background: #29425f !important; color: #dbeaff !important; }
+html[data-theme="dark"] :is(.play-canvas-bar>span,.graph-workflow-bar button,.graph-workspace .studio-toolbar button,.solver-result button,.project-gallery>button) { background: #29425f; color: #dbeaff; }
+html[data-theme="dark"] .project-gallery header>span { background: #29425f; color: #cde2ff; }
+html[data-theme="dark"] :is(.play-tools,.play-inspector,.play-canvas-bar) { border-color: #486180; }
+html[data-theme="dark"] :is(.play-canvas-wrap,.experiment-stage svg,.viewport-pane,.general-stage,.svg-stage,.formula-spatial,.drawing-surface) { background: #14263b; }
+html[data-theme="dark"] :is(.play-canvas,.graph-workspace,.graph-extensions,.advanced-playground) svg rect[fill="#f8fcf9"],html[data-theme="dark"] :is(.graph-workspace,.graph-extensions) svg rect[fill="#f8fafc"] { fill: #14263b; }
+html[data-theme="dark"] .play-canvas pattern path { stroke: #3c5470; }
+html[data-theme="dark"] .play-canvas text[fill="#719483"] { fill: #bdd4ec; }
+html[data-theme="dark"] :is(.graph-workspace,.graph-extensions,.advanced-playground) svg text[fill="#334155"] { fill: #d3e3f5; }
+html[data-theme="dark"] :is(.graph-workspace,.graph-extensions,.advanced-playground) svg path[stroke="#dbe4ef"],html[data-theme="dark"] .advanced-playground svg path[stroke="#e2e8f0"] { stroke: #3c5470; }
+html[data-theme="dark"] .experiment-stage svg text:not([fill]) { fill: #d6e6f9; }
+html[data-theme="dark"] :is(.pane-label,.orbit-hint,.scene-loading,.spatial-orbit-hint) { color: #d2e6fc; background: #243c56; }
+html[data-theme="dark"] .scene-label { color: #edf3fc; background: #203955ee; }
+html[data-theme="dark"] :is(.scene-error,.challenge-hint,.math-caution,.status) { background: #493c28; color: #f4d69e; border-color: #91784f; }
+html[data-theme="dark"] :is(.status.reviewed,.feedback-correct,.exam-feedback) { color: #9be2c6 !important; }
+html[data-theme="dark"] .status.reviewed { background: #24483c; }
+html[data-theme="dark"] :is(.formula-domain-notice,.misconception,.lesson-condition) { background: #423a2b; color: #f2d49d; }
+html[data-theme="dark"] :is(.variable-table th,.live-relationship small,.worked-example>small,.concept-connections small,.formula-chart text) { color: #c2d5eb; }
+html[data-theme="dark"] .formula-chart text { fill: #c2d5eb; }
+html[data-theme="dark"] :is(.difficulty-summary button.selected,.model-view-tabs button.selected,.real-versions button.selected,.situation-type-tabs button.selected,.play-instruments button.selected,.play-tools>button.selected,.tool-group>button.selected,.mode-switch button.selected,.view-switch button.selected,.prediction-options button.selected,.class-domains button.selected,.guide-tabs button.selected,.design-template-grid button.selected,.formula-path-tabs button.selected,.unified-journey button.selected,.discovery-page button[aria-pressed="true"],.discovery-journey button.selected,.circle-journey button.selected,.discovery-timeline button[aria-current="step"]) { background: var(--theme-selected); color: #fff; border-color: #6c96c9; }
+html[data-theme="dark"] .class-strip button:hover { background: var(--soft); }
+html[data-theme="dark"] .card-art { color: #213c62; }
+html[data-theme="dark"] .art-badge { background: #ffffffdd; color: #2d4664; }
+html[data-theme="dark"] .exam-question-map .answered { background: #285b4e !important; color: #dcfff0 !important; }
+html[data-theme="dark"] .exam-all-methods b { color: #a2dfce; }
+/* Exported print reports remain ink on paper, independent of the screen theme. */
+@media print { html[data-theme="dark"] { color-scheme: light; --bg:#fff; --panel:#fff; --surface:#fff; --soft:#f2f5f9; --ink:#19324c; --muted:#52677a; --line:#cfd9e3; } html[data-theme="dark"] :is(body,.app,.app-content){background:#fff!important;color:#19324c!important} }
+
+html[data-theme="dark"] :is(.live-chip,.graph-controls dt) { color:#bad4ef; }
+html[data-theme="dark"] .graph-workspace th { color:#dbeaff !important; }
+html[data-theme="dark"] :is(.graph-workspace,.graph-extensions,.advanced-playground) svg [stroke="#2563eb"] { stroke:#83b5ff; }
+html[data-theme="dark"] :is(.graph-workspace,.graph-extensions,.advanced-playground) svg [fill="#0f172a"] { fill:#f0f6ff; }
+
+html[data-theme="dark"] .canvas-workflow b { background:#344f74; color:#e6f0ff; }
+html[data-theme="dark"] .design-template-grid button.selected small { color:#edf5ff; }
